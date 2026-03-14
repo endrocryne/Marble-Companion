@@ -172,14 +172,8 @@ public class HabitService : IHabitService
             .Where(c => c.CheckedInAt.Date < today)
             .MaxBy(c => c.CheckedInAt);
 
-        if (lastCheckin?.CheckedInAt.Date == today.AddDays(-1))
-        {
-            habit.CurrentStreak++;
-        }
-        else
-        {
-            habit.CurrentStreak = 1;
-        }
+        habit.CurrentStreak = StreakHelper.CalculateNewStreak(
+            habit.CurrentStreak, lastCheckin?.CheckedInAt, today);
         habit.BestStreak = Math.Max(habit.BestStreak, habit.CurrentStreak);
 
         await _db.SaveChangesAsync();

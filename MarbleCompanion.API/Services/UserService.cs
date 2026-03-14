@@ -34,8 +34,7 @@ public class UserService : IUserService
 
         if (dto.DisplayName != null) user.DisplayName = dto.DisplayName;
         if (dto.AvatarIndex.HasValue) user.AvatarIndex = dto.AvatarIndex.Value;
-        if (dto.RegionContinent != null) user.Region = dto.RegionContinent;
-        if (dto.RegionCountry != null) user.Region = $"{dto.RegionContinent ?? user.Region?.Split('/').FirstOrDefault()}/{dto.RegionCountry}";
+        user.Region = BuildRegionString(dto.RegionContinent, dto.RegionCountry, user.Region);
 
         await _userManager.UpdateAsync(user);
         return MapProfile(user);
@@ -229,4 +228,18 @@ public class UserService : IUserService
     }
 
     private static string Escape(string value) => value.Replace("\"", "\"\"");
+
+    private static string? BuildRegionString(string? continent, string? country, string? existingRegion)
+    {
+        if (continent == null && country == null)
+            return existingRegion;
+
+        var effectiveContinent = continent ?? existingRegion?.Split('/').FirstOrDefault();
+        if (effectiveContinent == null)
+            return existingRegion;
+
+        return country != null
+            ? $"{effectiveContinent}/{country}"
+            : effectiveContinent;
+    }
 }

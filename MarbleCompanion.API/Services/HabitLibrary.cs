@@ -3,6 +3,12 @@ using MarbleCompanion.Shared.Enums;
 
 namespace MarbleCompanion.API.Services;
 
+/// <summary>
+/// Static library of 80+ pre-authored eco-habits.
+/// CO2e estimates are derived from EPA GHG Equivalencies, DEFRA emission factors,
+/// Poore &amp; Nemecek (Science, 2018), IPCC AR6, and Project Drawdown (2023).
+/// Values represent average CO2e avoided per single action/day in kg.
+/// </summary>
 public static class HabitLibrary
 {
     public record HabitItem(

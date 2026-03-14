@@ -67,14 +67,7 @@ public class ActionService : IActionService
         var today = DateTime.UtcNow.Date;
         if (user.LastActionDate == null || user.LastActionDate.Value.Date < today)
         {
-            if (user.LastActionDate?.Date == today.AddDays(-1))
-            {
-                user.StreakCurrent++;
-            }
-            else if (user.LastActionDate == null || user.LastActionDate.Value.Date < today.AddDays(-1))
-            {
-                user.StreakCurrent = 1;
-            }
+            user.StreakCurrent = StreakHelper.CalculateNewStreak(user.StreakCurrent, user.LastActionDate, today);
             user.StreakBest = Math.Max(user.StreakBest, user.StreakCurrent);
         }
         user.LastActionDate = DateTime.UtcNow;

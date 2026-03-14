@@ -188,8 +188,12 @@ public class AuthService : IAuthService
 
     private string GenerateJwtToken(ApplicationUser user)
     {
-        var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? throw new InvalidOperationException("JWT key not configured.")));
+        var keyString = _config["Jwt:Key"]
+            ?? throw new InvalidOperationException("JWT key not configured.");
+        if (keyString.Length < 32)
+            throw new InvalidOperationException("JWT key must be at least 32 characters for HS256.");
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyString));
 
         var claims = new[]
         {
