@@ -3,10 +3,11 @@ namespace MarbleCompanion.Shared.Constants;
 public static class AppConstants
 {
     // Brand colors
+    public const string PrimaryColor = "#0D7377";
     public const string PrimaryGreen = "#2E7D32";
     public const string SecondaryGreen = "#66BB6A";
     public const string AccentGold = "#FFD54F";
-    public const string BackgroundLight = "#F1F8E9";
+    public const string BackgroundLight = "#F4F9F4";
     public const string BackgroundDark = "#1B1B1B";
     public const string TextPrimary = "#212121";
     public const string TextSecondary = "#757575";

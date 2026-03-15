@@ -11,6 +11,12 @@ public static class TreeGrowthConstants
         [0, 50, 150, 350, 700, 1200, 2000, 3200, 5000, 7500, 11000, 16000];
 
     /// <summary>
+    /// Stage thresholds (LP required to reach each stage, index = stage number).
+    /// Alias for <see cref="LPThresholds"/>.
+    /// </summary>
+    public static readonly int[] StageThresholds = LPThresholds;
+
+    /// <summary>
     /// Display names for each growth stage (index = stage number).
     /// </summary>
     public static readonly string[] StageNames =
