@@ -97,6 +97,7 @@ node_modules/
 ## MAUI
 *.ipa
 *.apk
+!/MarbleCompanion.apk
 *.aab
 *.dsym/
 

@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -23,12 +26,12 @@ jobs:
         run: dotnet workload install maui-android
 
       - name: Restore dependencies
-        run: dotnet restore MarbleCompanion.Mobile/MarbleCompanion.Mobile.csproj -f net8.0-android
+        run: dotnet restore MarbleCompanion.Mobile/MarbleCompanion.Mobile.csproj --framework net8.0-android
 
       - name: Build and publish Android APK
         run: |
           dotnet publish MarbleCompanion.Mobile/MarbleCompanion.Mobile.csproj \
-            -f net8.0-android \
+            --framework net8.0-android \
             -c Release \
             -p:AndroidSdkDirectory=$ANDROID_SDK_ROOT \
             -p:EmbedAssembliesIntoApk=true \
@@ -38,8 +41,27 @@ jobs:
         id: find-apk
         run: |
           APK_PATH=$(find MarbleCompanion.Mobile/bin/Release/net8.0-android -name "*.apk" | head -1)
+          if [ -z "$APK_PATH" ]; then
+            echo "::error::No APK file found after build."
+            exit 1
+          fi
           echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
           echo "Found APK: $APK_PATH"
+
+      - name: Copy APK to repository root
+        run: cp "${{ steps.find-apk.outputs.apk_path }}" MarbleCompanion.apk
+
+      - name: Commit APK to repository root
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f MarbleCompanion.apk
+          if git diff --staged --quiet; then
+            echo "APK unchanged, skipping commit."
+          else
+            git commit -m "ci: update compiled Android APK [skip ci]"
+            git push origin HEAD || { echo "::error::Failed to push APK to repository."; exit 1; }
+          fi
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
