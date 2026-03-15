@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    x:Class="MarbleCompanion.Mobile.Views.ChallengesPage"
+    x:DataType="vm:ChallengesViewModel"
+    Title="Challenges"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid RowDefinitions="Auto,*" Padding="16" RowSpacing="12">
+
+        <!-- Tab Selector -->
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+            <Button x:Name="btnCurated" Text="Curated" Clicked="OnCuratedTapped" />
+            <Button x:Name="btnMine" Grid.Column="1" Text="Mine" Style="{StaticResource SecondaryButton}" Clicked="OnMineTapped" />
+        </Grid>
+
+        <RefreshView Grid.Row="1" Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy}">
+            <ScrollView>
+                <VerticalStackLayout Spacing="12">
+
+                    <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+
+                    <!-- Curated Challenges -->
+                    <CollectionView x:Name="curatedList" ItemsSource="{Binding CuratedChallenges}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:Object">
+                                <Frame Margin="0,0,0,8" Padding="16">
+                                    <VerticalStackLayout Spacing="6">
+                                        <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" FontFamily="Georgia" />
+                                        <Label Text="{Binding Description}" FontSize="13" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" MaxLines="2" LineBreakMode="TailTruncation" />
+                                        <HorizontalStackLayout Spacing="12">
+                                            <Label Text="{Binding Difficulty}" FontSize="12" TextColor="{StaticResource Warning}" FontFamily="Georgia" />
+                                            <Label Text="{Binding Category}" FontSize="12" TextColor="{StaticResource Primary}" FontFamily="Georgia" />
+                                            <Label Text="{Binding ParticipantCount, StringFormat='{0} joined'}" FontSize="12" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" />
+                                        </HorizontalStackLayout>
+                                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                            <Label Text="{Binding LPReward, StringFormat='🏆 {0} LP reward'}" FontSize="13" TextColor="{StaticResource Success}" VerticalOptions="Center" FontFamily="Georgia" />
+                                            <Button Grid.Column="1" Text="Join" Padding="16,6" FontSize="13" HeightRequest="36"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ChallengesViewModel}}, Path=JoinCommand}" CommandParameter="{Binding Id}" />
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- My Challenges -->
+                    <CollectionView x:Name="myList" ItemsSource="{Binding MyChallenges}" IsVisible="False">
+                        <CollectionView.EmptyView>
+                            <VerticalStackLayout HorizontalOptions="Center" Padding="32" Spacing="8">
+                                <Label Text="🏆" FontSize="48" HorizontalTextAlignment="Center" />
+                                <Label Text="No challenges yet" Style="{StaticResource SubtitleLabel}" HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:Object">
+                                <Frame Margin="0,0,0,8" Padding="16">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ChallengesViewModel}}, Path=NavigateToDetailCommand}" CommandParameter="{Binding Id}" />
+                                    </Frame.GestureRecognizers>
+                                    <VerticalStackLayout Spacing="6">
+                                        <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" FontFamily="Georgia" />
+                                        <Label Text="{Binding Description}" FontSize="13" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" MaxLines="2" LineBreakMode="TailTruncation" />
+                                        <HorizontalStackLayout Spacing="12">
+                                            <Label Text="{Binding Difficulty}" FontSize="12" TextColor="{StaticResource Warning}" FontFamily="Georgia" />
+                                            <Label Text="{Binding EndsAt, StringFormat='Ends: {0:MMM dd}'}" FontSize="12" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+    </Grid>
+
+</ContentPage>

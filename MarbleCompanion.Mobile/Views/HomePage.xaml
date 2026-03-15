@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+             xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+             x:Class="MarbleCompanion.Mobile.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Title="Home"
+             BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid>
+        <RefreshView Command="{Binding RefreshCommand}"
+                     IsRefreshing="{Binding IsBusy}">
+            <ScrollView>
+                <VerticalStackLayout Spacing="16" Padding="16,8">
+
+                    <!-- Companion Tree -->
+                    <controls:CompanionTreeControl RenderState="{Binding TreeRenderState}"
+                                                   HeightRequest="350"
+                                                   HorizontalOptions="Fill" />
+
+                    <!-- Stat Badges Row -->
+                    <Grid ColumnDefinitions="*,16,*" Margin="0,4">
+
+                        <!-- Streak Card -->
+                        <Frame Grid.Column="0"
+                               BackgroundColor="{StaticResource CardLight}"
+                               CornerRadius="16"
+                               Padding="16"
+                               HasShadow="False"
+                               BorderColor="{StaticResource DividerLight}">
+                            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                                <Label Text="🔥"
+                                       FontSize="28"
+                                       HorizontalTextAlignment="Center" />
+                                <Label Text="{Binding CurrentStreak}"
+                                       FontFamily="Georgia"
+                                       FontSize="32"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextPrimary}"
+                                       HorizontalTextAlignment="Center" />
+                                <Label Text="Day Streak"
+                                       FontFamily="Georgia"
+                                       FontSize="13"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- LP Card -->
+                        <Frame Grid.Column="2"
+                               BackgroundColor="{StaticResource CardLight}"
+                               CornerRadius="16"
+                               Padding="16"
+                               HasShadow="False"
+                               BorderColor="{StaticResource DividerLight}">
+                            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                                <Label Text="⭐"
+                                       FontSize="28"
+                                       HorizontalTextAlignment="Center" />
+                                <Label Text="{Binding TotalLP}"
+                                       FontFamily="Georgia"
+                                       FontSize="32"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextPrimary}"
+                                       HorizontalTextAlignment="Center" />
+                                <Label Text="Leaf Points"
+                                       FontFamily="Georgia"
+                                       FontSize="13"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                    </Grid>
+
+                    <!-- Today's Fact Card -->
+                    <Frame BackgroundColor="{StaticResource CardLight}"
+                           CornerRadius="16"
+                           Padding="20"
+                           HasShadow="False"
+                           BorderColor="{StaticResource DividerLight}"
+                           x:Name="FactCard">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="🌿 Today's Fact"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Secondary}"
+                                   TextTransform="Uppercase" />
+                            <Label Text="{Binding TodaysFact.Title}"
+                                   FontFamily="Georgia"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource TextPrimary}" />
+                            <Label Text="{Binding TodaysFact.Summary}"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   LineBreakMode="WordWrap" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Error Message -->
+                    <Label Text="{Binding ErrorMessage}"
+                           FontFamily="Georgia"
+                           FontSize="14"
+                           TextColor="{StaticResource Error}"
+                           HorizontalTextAlignment="Center"
+                           IsVisible="False"
+                           x:Name="ErrorLabel" />
+
+                    <!-- Bottom spacer for FAB clearance -->
+                    <BoxView HeightRequest="72" Color="Transparent" />
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <!-- Floating Action Button -->
+        <Button Text="+"
+                Command="{Binding ShowQuickLogCommand}"
+                FontFamily="Georgia"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextOnPrimary}"
+                BackgroundColor="{StaticResource Accent}"
+                CornerRadius="28"
+                WidthRequest="56"
+                HeightRequest="56"
+                Padding="0"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="0,0,20,24">
+            <Button.Shadow>
+                <Shadow Brush="#40000000" Offset="0,4" Radius="8" />
+            </Button.Shadow>
+        </Button>
+    </Grid>
+
+</ContentPage>

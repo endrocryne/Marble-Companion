@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+    x:Class="MarbleCompanion.Mobile.Views.ContentDetailPage"
+    x:DataType="vm:ContentDetailViewModel"
+    Title="Article"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+            <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+            <Label Text="{Binding Title}" Style="{StaticResource TitleLabel}" />
+            <HorizontalStackLayout Spacing="12">
+                <Label Text="{Binding PublishedAt, StringFormat='{0:MMM dd, yyyy}'}" Style="{StaticResource CaptionLabel}" />
+                <Label Text="{Binding EstimatedReadingTimeMinutes, StringFormat='{0} min read'}" Style="{StaticResource CaptionLabel}" />
+                <Frame CornerRadius="10" Padding="8,2" HasShadow="False" BackgroundColor="{StaticResource Accent}"><Label Text="{Binding Difficulty}" FontSize="11" FontFamily="Georgia" /></Frame>
+            </HorizontalStackLayout>
+            <Label Text="{Binding Summary}" FontSize="15" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" FontAttributes="Italic" />
+            <BoxView HeightRequest="1" Color="{StaticResource DividerLight}" />
+            <Label Text="{Binding Body}" FontSize="15" FontFamily="Georgia" LineBreakMode="WordWrap" />
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="End" Margin="0,8,0,16">
+                <Label Text="{Binding LpReward, StringFormat='+{0} LP'}" FontSize="14" TextColor="{StaticResource Success}" VerticalOptions="Center" FontFamily="Georgia" />
+                <Button Text="{Binding IsBookmarked, Converter={x:StaticResource BoolToStringConverter}, ConverterParameter='Bookmarked|Bookmark'}" Style="{StaticResource SecondaryButton}" Padding="12,6" FontSize="13" HeightRequest="36" Command="{Binding ToggleBookmarkCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

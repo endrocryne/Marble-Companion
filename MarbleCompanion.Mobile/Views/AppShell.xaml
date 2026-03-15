@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MarbleCompanion.Mobile.Views"
+    x:Class="MarbleCompanion.Mobile.Views.AppShell"
+    FlyoutBehavior="Disabled">
+
+    <!-- Onboarding (non-tabbed, route only) -->
+    <ShellContent
+        Route="onboarding"
+        ContentTemplate="{DataTemplate views:OnboardingPage}"
+        Shell.TabBarIsVisible="False"
+        Shell.NavBarIsVisible="False" />
+
+    <!-- Setup (non-tabbed, route only) -->
+    <ShellContent
+        Route="setup"
+        ContentTemplate="{DataTemplate views:SetupPage}"
+        Shell.TabBarIsVisible="False"
+        Shell.NavBarIsVisible="False" />
+
+    <!-- Main Tab Bar -->
+    <TabBar Route="main">
+
+        <Tab Title="Home" Route="home">
+            <Tab.Icon>
+                <FontImageSource Glyph="🏠" FontFamily="Georgia" />
+            </Tab.Icon>
+            <ShellContent
+                Route="homepage"
+                ContentTemplate="{DataTemplate views:HomePage}" />
+        </Tab>
+
+        <Tab Title="Dashboard" Route="dashboard">
+            <Tab.Icon>
+                <FontImageSource Glyph="📊" FontFamily="Georgia" />
+            </Tab.Icon>
+            <ShellContent
+                Route="dashboardpage"
+                ContentTemplate="{DataTemplate views:DashboardPage}" />
+        </Tab>
+
+        <Tab Title="Habits" Route="habits">
+            <Tab.Icon>
+                <FontImageSource Glyph="🌿" FontFamily="Georgia" />
+            </Tab.Icon>
+            <ShellContent
+                Route="habitspage"
+                ContentTemplate="{DataTemplate views:HabitsPage}" />
+        </Tab>
+
+        <Tab Title="Social" Route="social">
+            <Tab.Icon>
+                <FontImageSource Glyph="👥" FontFamily="Georgia" />
+            </Tab.Icon>
+            <ShellContent
+                Route="friendspage"
+                ContentTemplate="{DataTemplate views:FriendsPage}" />
+        </Tab>
+
+        <Tab Title="Profile" Route="profile">
+            <Tab.Icon>
+                <FontImageSource Glyph="👤" FontFamily="Georgia" />
+            </Tab.Icon>
+            <ShellContent
+                Route="profilepage"
+                ContentTemplate="{DataTemplate views:ProfilePage}" />
+        </Tab>
+
+    </TabBar>
+
+</Shell>

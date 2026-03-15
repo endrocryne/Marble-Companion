@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MarbleCompanion.Mobile.Resources.Styles.Colors">
+
+    <!-- Brand Primary Palette -->
+    <Color x:Key="Primary">#0D7377</Color>
+    <Color x:Key="Secondary">#14A085</Color>
+    <Color x:Key="Accent">#32E0C4</Color>
+
+    <!-- Background -->
+    <Color x:Key="BackgroundLight">#F4F9F4</Color>
+    <Color x:Key="BackgroundDark">#0A1628</Color>
+
+    <!-- Text -->
+    <Color x:Key="TextPrimary">#1A2E35</Color>
+    <Color x:Key="TextSecondary">#5A7A82</Color>
+    <Color x:Key="TextOnPrimary">#FFFFFF</Color>
+
+    <!-- Semantic -->
+    <Color x:Key="Warning">#E07A5F</Color>
+    <Color x:Key="Success">#3AB795</Color>
+    <Color x:Key="Error">#D32F2F</Color>
+
+    <!-- Surface -->
+    <Color x:Key="SurfaceLight">#FFFFFF</Color>
+    <Color x:Key="SurfaceDark">#12223A</Color>
+    <Color x:Key="CardLight">#FFFFFF</Color>
+    <Color x:Key="CardDark">#182D48</Color>
+
+    <!-- Divider / Border -->
+    <Color x:Key="DividerLight">#E0EDE0</Color>
+    <Color x:Key="DividerDark">#1F3654</Color>
+
+    <!-- Disabled -->
+    <Color x:Key="DisabledLight">#C4D4C4</Color>
+    <Color x:Key="DisabledDark">#3A4F5C</Color>
+
+    <!-- Category Colors -->
+    <Color x:Key="CategoryTransport">#3B82F6</Color>
+    <Color x:Key="CategoryFood">#22C55E</Color>
+    <Color x:Key="CategoryEnergy">#F59E0B</Color>
+    <Color x:Key="CategoryShopping">#A855F7</Color>
+    <Color x:Key="CategoryTravel">#EC4899</Color>
+    <Color x:Key="CategoryWaste">#06B6D4</Color>
+
+    <!-- Light Theme -->
+    <Color x:Key="PageBackground">#F4F9F4</Color>
+    <Color x:Key="CardBackground">#FFFFFF</Color>
+    <Color x:Key="ShadowColor">#22000000</Color>
+
+</ResourceDictionary>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+    x:Class="MarbleCompanion.Mobile.Views.SettingsPage"
+    x:DataType="vm:SettingsViewModel"
+    Title="Settings"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+            <Label Text="Settings" Style="{StaticResource TitleLabel}" />
+            <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+            <Label Text="{Binding SuccessMessage}" TextColor="{StaticResource Success}" IsVisible="{Binding SuccessMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+            <Frame Padding="16"><VerticalStackLayout Spacing="12">
+                <Label Text="Notifications" Style="{StaticResource SubtitleLabel}" />
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Habit Reminders" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding HabitReminders}" /></Grid>
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Challenge Updates" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding ChallengeUpdates}" /></Grid>
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Friend Activity" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding FriendActivity}" /></Grid>
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Achievement Alerts" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding AchievementAlerts}" /></Grid>
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Weekly Report" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding WeeklyReport}" /></Grid>
+            </VerticalStackLayout></Frame>
+            <Frame Padding="16"><VerticalStackLayout Spacing="12">
+                <Label Text="Preferences" Style="{StaticResource SubtitleLabel}" />
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Use Metric Units" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding UseMetric}" /></Grid>
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Theme" VerticalOptions="Center" FontFamily="Georgia" /><Picker Grid.Column="1" ItemsSource="{Binding ThemeOptions}" SelectedItem="{Binding Theme}" WidthRequest="120" /></Grid>
+            </VerticalStackLayout></Frame>
+            <Frame Padding="16"><VerticalStackLayout Spacing="12">
+                <Label Text="Privacy" Style="{StaticResource SubtitleLabel}" />
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Public Profile" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding ProfilePublic}" /></Grid>
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Show in Leaderboards" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding ShowInLeaderboards}" /></Grid>
+                <Grid ColumnDefinitions="*,Auto"><Label Text="Share Feed Activity" VerticalOptions="Center" FontFamily="Georgia" /><Switch Grid.Column="1" IsToggled="{Binding ShareFeedActivity}" /></Grid>
+            </VerticalStackLayout></Frame>
+            <Button Text="Save Settings" Command="{Binding SaveCommand}" />
+            <Button Text="Export My Data" Style="{StaticResource SecondaryButton}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SettingsViewModel}}, Path=LogoutCommand}" />
+            <Button Text="Log Out" Style="{StaticResource SecondaryButton}" Command="{Binding LogoutCommand}" />
+            <Button Text="Delete Account" Style="{StaticResource DangerButton}" Command="{Binding DeleteAccountCommand}" Margin="0,16,0,32" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

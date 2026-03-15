@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+    x:Class="MarbleCompanion.Mobile.Views.HabitsPage"
+    x:DataType="vm:HabitsViewModel"
+    Title="Habits"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid RowDefinitions="*,Auto">
+        <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy}">
+            <ScrollView>
+                <VerticalStackLayout Spacing="12" Padding="16">
+
+                    <Label Text="Your Habits" Style="{StaticResource TitleLabel}" />
+
+                    <Label
+                        Text="{Binding ErrorMessage}"
+                        TextColor="{StaticResource Error}"
+                        IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+
+                    <!-- Empty State -->
+                    <Frame
+                        IsVisible="{Binding HasHabits, Converter={x:StaticResource InvertedBoolConverter}}"
+                        Padding="32"
+                        Margin="0,24,0,0">
+                        <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                            <Label Text="🌿" FontSize="48" HorizontalTextAlignment="Center" />
+                            <Label Text="No habits yet" Style="{StaticResource SubtitleLabel}" HorizontalTextAlignment="Center" />
+                            <Label Text="Start building sustainable habits from our library." TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Habits List -->
+                    <CollectionView ItemsSource="{Binding ActiveHabits}" IsVisible="{Binding HasHabits}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:Object">
+                                <Frame Margin="0,0,0,8" Padding="16">
+                                    <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12">
+                                        <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" FontFamily="Georgia" />
+                                        <Label Grid.Row="1" Text="{Binding Category}" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" FontSize="13" />
+
+                                        <VerticalStackLayout Grid.Column="1" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center">
+                                            <Label Text="{Binding CurrentStreak}" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalTextAlignment="Center" FontFamily="Georgia" />
+                                            <Label Text="streak" Style="{StaticResource CaptionLabel}" HorizontalTextAlignment="Center" />
+                                        </VerticalStackLayout>
+
+                                        <Button
+                                            Grid.Column="2"
+                                            Grid.RowSpan="2"
+                                            Text="✓"
+                                            WidthRequest="44"
+                                            HeightRequest="44"
+                                            CornerRadius="22"
+                                            Padding="0"
+                                            BackgroundColor="{StaticResource Success}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HabitsViewModel}}, Path=CheckinCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            VerticalOptions="Center" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <!-- Browse Library Button -->
+        <Button
+            Grid.Row="1"
+            Text="Browse Habit Library"
+            Margin="16,8,16,16"
+            Command="{Binding NavigateToLibraryCommand}" />
+    </Grid>
+
+</ContentPage>

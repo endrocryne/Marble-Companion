@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    x:Class="MarbleCompanion.Mobile.Views.ChallengeDetailPage"
+    x:DataType="vm:ChallengeDetailViewModel"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+            <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+
+            <!-- Header -->
+            <Frame Padding="20">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding Title}" Style="{StaticResource TitleLabel}" />
+                    <Label Text="{Binding Description}" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" LineBreakMode="WordWrap" />
+                    <HorizontalStackLayout Spacing="16" Margin="0,4,0,0">
+                        <Label Text="{Binding Difficulty}" FontSize="13" TextColor="{StaticResource Warning}" FontFamily="Georgia" />
+                        <Label Text="{Binding Category}" FontSize="13" TextColor="{StaticResource Primary}" FontFamily="Georgia" />
+                        <Label Text="{Binding Type}" FontSize="13" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Progress -->
+            <Frame Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Progress" Style="{StaticResource SubtitleLabel}" />
+                    <ProgressBar Progress="{Binding ProgressPercent}" />
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Text="{Binding TargetValue, StringFormat='Target: {0}'}" FontSize="13" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" />
+                        <Label Grid.Column="1" Text="{Binding LpReward, StringFormat='🏆 {0} LP'}" FontSize="13" TextColor="{StaticResource Success}" HorizontalTextAlignment="End" FontFamily="Georgia" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Duration -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Frame Padding="16">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="{Binding DaysRemaining}" Style="{StaticResource StatValueLabel}" />
+                        <Label Text="Days Left" Style="{StaticResource StatCaptionLabel}" />
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Grid.Column="1" Padding="16">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="{Binding ParticipantCount}" Style="{StaticResource StatValueLabel}" />
+                        <Label Text="Participants" Style="{StaticResource StatCaptionLabel}" />
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <!-- Leaderboard -->
+            <Frame Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Leaderboard" Style="{StaticResource SubtitleLabel}" />
+                    <CollectionView ItemsSource="{Binding Leaderboard}">
+                        <CollectionView.EmptyView>
+                            <Label Text="No participants yet" TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" FontFamily="Georgia" />
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:Object">
+                                <Grid ColumnDefinitions="30,36,*,Auto" ColumnSpacing="10" Padding="0,6">
+                                    <Label Text="{Binding Rank, StringFormat='#{0}'}" FontAttributes="Bold" VerticalOptions="Center" FontFamily="Georgia" TextColor="{StaticResource Primary}" />
+                                    <Frame Grid.Column="1" WidthRequest="36" HeightRequest="36" CornerRadius="18" BackgroundColor="{StaticResource Accent}" Padding="0" HasShadow="False">
+                                        <Label Text="{Binding AvatarIndex}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontFamily="Georgia" />
+                                    </Frame>
+                                    <Label Grid.Column="2" Text="{Binding DisplayName}" VerticalOptions="Center" FontFamily="Georgia" />
+                                    <Label Grid.Column="3" Text="{Binding CurrentValue}" FontAttributes="Bold" VerticalOptions="Center" TextColor="{StaticResource Primary}" FontFamily="Georgia" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Join Button -->
+            <Button Text="Join Challenge" Command="{Binding JoinCommand}" Margin="0,8,0,16" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

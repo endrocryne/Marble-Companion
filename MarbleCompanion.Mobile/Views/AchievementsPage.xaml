@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+    x:Class="MarbleCompanion.Mobile.Views.AchievementsPage"
+    x:DataType="vm:AchievementsViewModel"
+    Title="Achievements"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy}">
+        <ScrollView>
+            <VerticalStackLayout Spacing="16" Padding="16">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Achievements" Style="{StaticResource TitleLabel}" />
+                    <Label Grid.Column="1" Text="{Binding CompletionPercent, StringFormat='{0:F0}% complete'}" TextColor="{StaticResource Primary}" VerticalOptions="Center" FontFamily="Georgia" />
+                </Grid>
+                <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+                <ProgressBar Progress="{Binding CompletionPercent, Converter={x:StaticResource DivideBy100Converter}}" />
+                <Label Text="{Binding UnlockedCount, StringFormat='{0} unlocked'}" Style="{StaticResource CaptionLabel}" />
+                <CollectionView ItemsSource="{Binding AllAchievements}" ItemsLayout="VerticalGrid, 2">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Frame Margin="4" Padding="12" Opacity="{Binding IsUnlocked, Converter={x:StaticResource BoolToOpacityConverter}}">
+                                <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                                    <Label Text="🏅" FontSize="32" HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding Name}" FontSize="13" FontAttributes="Bold" HorizontalTextAlignment="Center" FontFamily="Georgia" MaxLines="2" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Description}" FontSize="11" TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" FontFamily="Georgia" MaxLines="2" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding LPReward, StringFormat='+{0} LP'}" FontSize="12" TextColor="{StaticResource Success}" HorizontalTextAlignment="Center" FontFamily="Georgia" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

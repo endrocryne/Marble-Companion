@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+             xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+             x:Class="MarbleCompanion.Mobile.Views.QuickLogPage"
+             x:DataType="vm:QuickLogViewModel"
+             Title="Quick Log"
+             BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid RowDefinitions="*" ColumnDefinitions="*">
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="0" Grid.Column="0"
+                    Padding="20,16">
+            <VerticalStackLayout Spacing="20">
+
+                <!-- Page Header -->
+                <Label Text="Quick Log"
+                       FontFamily="Georgia"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}"
+                       HorizontalOptions="Start" />
+
+                <Label Text="Tap a category, then pick an action."
+                       FontFamily="Georgia"
+                       FontSize="14"
+                       TextColor="{StaticResource TextSecondary}"
+                       HorizontalOptions="Start" />
+
+                <!-- Category Tiles – 3×2 Grid -->
+                <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="Auto,Auto"
+                      ColumnSpacing="12"
+                      RowSpacing="12">
+
+                    <!-- Transport -->
+                    <Frame x:Name="TransportTile"
+                           Grid.Row="0" Grid.Column="0"
+                           Padding="12"
+                           CornerRadius="14"
+                           BorderColor="{StaticResource DividerLight}"
+                           BackgroundColor="{StaticResource CardLight}"
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTransportTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Label Text="🚗"
+                                   FontSize="28"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Transport"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Food -->
+                    <Frame x:Name="FoodTile"
+                           Grid.Row="0" Grid.Column="1"
+                           Padding="12"
+                           CornerRadius="14"
+                           BorderColor="{StaticResource DividerLight}"
+                           BackgroundColor="{StaticResource CardLight}"
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFoodTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Label Text="🥗"
+                                   FontSize="28"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Food"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Energy -->
+                    <Frame x:Name="EnergyTile"
+                           Grid.Row="0" Grid.Column="2"
+                           Padding="12"
+                           CornerRadius="14"
+                           BorderColor="{StaticResource DividerLight}"
+                           BackgroundColor="{StaticResource CardLight}"
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnEnergyTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Label Text="⚡"
+                                   FontSize="28"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Energy"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Shopping -->
+                    <Frame x:Name="ShoppingTile"
+                           Grid.Row="1" Grid.Column="0"
+                           Padding="12"
+                           CornerRadius="14"
+                           BorderColor="{StaticResource DividerLight}"
+                           BackgroundColor="{StaticResource CardLight}"
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnShoppingTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Label Text="🛍️"
+                                   FontSize="28"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Shopping"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Travel -->
+                    <Frame x:Name="TravelTile"
+                           Grid.Row="1" Grid.Column="1"
+                           Padding="12"
+                           CornerRadius="14"
+                           BorderColor="{StaticResource DividerLight}"
+                           BackgroundColor="{StaticResource CardLight}"
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTravelTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Label Text="✈️"
+                                   FontSize="28"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Travel"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Waste -->
+                    <Frame x:Name="WasteTile"
+                           Grid.Row="1" Grid.Column="2"
+                           Padding="12"
+                           CornerRadius="14"
+                           BorderColor="{StaticResource DividerLight}"
+                           BackgroundColor="{StaticResource CardLight}"
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnWasteTapped" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Label Text="♻️"
+                                   FontSize="28"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Waste"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- Action Templates List -->
+                <Label Text="Actions"
+                       FontFamily="Georgia"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView ItemsSource="{Binding ActionTemplates}"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout Padding="20" HorizontalOptions="Center">
+                            <Label Text="Select a category above to see actions."
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ActionTemplateItem">
+                            <Frame Padding="14,12"
+                                   CornerRadius="12"
+                                   BackgroundColor="{StaticResource CardLight}"
+                                   BorderColor="{StaticResource DividerLight}"
+                                   HasShadow="False">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:QuickLogViewModel}}, Path=LogActionCommand}"
+                                                          CommandParameter="{Binding Id}" />
+                                </Frame.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="12"
+                                                       VerticalOptions="Center">
+                                    <Label Text="{Binding Icon}"
+                                           FontSize="24"
+                                           VerticalOptions="Center" />
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="Georgia"
+                                           FontSize="16"
+                                           TextColor="{StaticResource TextPrimary}"
+                                           VerticalOptions="Center" />
+                                    <Label Text="›"
+                                           FontFamily="Georgia"
+                                           FontSize="22"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Error Label -->
+                <Label x:Name="ErrorLabel"
+                       Text="{Binding ErrorMessage}"
+                       FontFamily="Georgia"
+                       FontSize="14"
+                       TextColor="{StaticResource Error}"
+                       HorizontalTextAlignment="Center"
+                       IsVisible="False"
+                       Margin="0,4,0,0" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Loading Overlay -->
+        <Grid Grid.Row="0" Grid.Column="0"
+              BackgroundColor="#80000000"
+              IsVisible="{Binding IsBusy}"
+              InputTransparent="False">
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               Color="{StaticResource Accent}"
+                               HeightRequest="48"
+                               WidthRequest="48"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+        </Grid>
+
+        <!-- Success Overlay -->
+        <Grid Grid.Row="0" Grid.Column="0"
+              BackgroundColor="#80000000"
+              IsVisible="{Binding ShowSuccess}"
+              InputTransparent="False">
+            <Frame Padding="28,32"
+                   CornerRadius="20"
+                   BackgroundColor="{StaticResource CardLight}"
+                   BorderColor="{StaticResource DividerLight}"
+                   HasShadow="True"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="280">
+                <VerticalStackLayout Spacing="16"
+                                     HorizontalOptions="Center">
+                    <Label Text="✅"
+                           FontSize="48"
+                           HorizontalTextAlignment="Center" />
+
+                    <Label Text="Logged!"
+                           FontFamily="Georgia"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Success}"
+                           HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout Spacing="6"
+                                           HorizontalOptions="Center">
+                        <Label Text="+"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                        <Label Text="{Binding LpAwarded}"
+                               FontFamily="Georgia"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                        <Label Text="LP"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6"
+                                           HorizontalOptions="Center">
+                        <Label Text="{Binding Co2eSaved, StringFormat='{0:F2}'}"
+                               FontFamily="Georgia"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Secondary}"
+                               VerticalOptions="Center" />
+                        <Label Text="kg CO₂e saved"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <Button Text="Done"
+                            FontFamily="Georgia"
+                            FontSize="16"
+                            Command="{Binding DismissSuccessCommand}"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="{StaticResource TextOnPrimary}"
+                            CornerRadius="12"
+                            HeightRequest="48"
+                            Margin="0,8,0,0" />
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+
+    </Grid>
+</ContentPage>

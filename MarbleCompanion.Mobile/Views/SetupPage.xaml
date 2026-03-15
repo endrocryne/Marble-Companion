@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+             xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+             x:Class="MarbleCompanion.Mobile.Views.SetupPage"
+             x:DataType="vm:SetupViewModel"
+             Title="Profile Setup"
+             BackgroundColor="{StaticResource BackgroundLight}"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <ScrollView Padding="24,16">
+        <VerticalStackLayout Spacing="20">
+
+            <!-- Page Title -->
+            <Label Text="Set up your profile"
+                   FontFamily="Georgia"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,12,0,4" />
+
+            <!-- Display Name -->
+            <Entry Text="{Binding DisplayName}"
+                   Placeholder="Your display name"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   TextColor="{StaticResource TextPrimary}"
+                   PlaceholderColor="{StaticResource TextSecondary}"
+                   BackgroundColor="{StaticResource SurfaceLight}"
+                   Margin="0,0,0,4" />
+
+            <!-- Avatar Picker -->
+            <Label Text="Choose your avatar"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" />
+
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="12">
+
+                    <Frame WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                           Padding="0" HasShadow="False" BorderColor="{StaticResource DisabledLight}"
+                           BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="0" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="1" FontFamily="Georgia" FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <Frame WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                           Padding="0" HasShadow="False" BorderColor="{StaticResource DisabledLight}"
+                           BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="1" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="2" FontFamily="Georgia" FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <Frame WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                           Padding="0" HasShadow="False" BorderColor="{StaticResource DisabledLight}"
+                           BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="2" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="3" FontFamily="Georgia" FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <Frame WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                           Padding="0" HasShadow="False" BorderColor="{StaticResource DisabledLight}"
+                           BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="3" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="4" FontFamily="Georgia" FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <Frame WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                           Padding="0" HasShadow="False" BorderColor="{StaticResource DisabledLight}"
+                           BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="4" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="5" FontFamily="Georgia" FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <Frame WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                           Padding="0" HasShadow="False" BorderColor="{StaticResource DisabledLight}"
+                           BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="5" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="6" FontFamily="Georgia" FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <Frame WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                           Padding="0" HasShadow="False" BorderColor="{StaticResource DisabledLight}"
+                           BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="6" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="7" FontFamily="Georgia" FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Frame>
+
+                    <Frame WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                           Padding="0" HasShadow="False" BorderColor="{StaticResource DisabledLight}"
+                           BackgroundColor="{StaticResource SurfaceLight}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="7" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="8" FontFamily="Georgia" FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Frame>
+
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <!-- Location Pickers -->
+            <Label Text="Where are you based?"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" />
+
+            <Picker Title="Select Continent"
+                    ItemsSource="{Binding Continents}"
+                    SelectedItem="{Binding SelectedContinent}"
+                    FontFamily="Georgia"
+                    TextColor="{StaticResource TextPrimary}"
+                    TitleColor="{StaticResource TextSecondary}" />
+
+            <Entry Text="{Binding SelectedCountry}"
+                   Placeholder="Enter your country"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   TextColor="{StaticResource TextPrimary}"
+                   PlaceholderColor="{StaticResource TextSecondary}"
+                   BackgroundColor="{StaticResource SurfaceLight}" />
+
+            <!-- Diet Quiz -->
+            <Label Text="What best describes your diet?"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" />
+
+            <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start"
+                        BindableLayout.ItemsSource="{Binding DietOptions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Frame Style="{StaticResource ChipFrame}" Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDietChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding .}"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <!-- Transport Quiz -->
+            <Label Text="How do you usually get around?"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" />
+
+            <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start"
+                        BindableLayout.ItemsSource="{Binding TransportOptions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Frame Style="{StaticResource ChipFrame}" Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTransportChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding .}"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <!-- Energy Quiz -->
+            <Label Text="What powers your home?"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" />
+
+            <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start"
+                        BindableLayout.ItemsSource="{Binding EnergyOptions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Frame Style="{StaticResource ChipFrame}" Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEnergyChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding .}"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <!-- Flights Quiz -->
+            <Label Text="How often do you fly?"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" />
+
+            <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start"
+                        BindableLayout.ItemsSource="{Binding FlightOptions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Frame Style="{StaticResource ChipFrame}" Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFlightChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding .}"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <!-- Shopping Quiz -->
+            <Label Text="How would you describe your shopping habits?"
+                   FontFamily="Georgia"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" />
+
+            <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start"
+                        BindableLayout.ItemsSource="{Binding ShoppingOptions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Frame Style="{StaticResource ChipFrame}" Margin="4">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnShoppingChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding .}"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}"
+                   FontFamily="Georgia"
+                   FontSize="14"
+                   TextColor="{StaticResource Error}"
+                   IsVisible="False"
+                   HorizontalTextAlignment="Center"
+                   x:Name="ErrorLabel" />
+
+            <!-- Activity Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center" />
+
+            <!-- Get Started Button -->
+            <Button Text="Get Started"
+                    Command="{Binding CompleteSetupCommand}"
+                    FontFamily="Georgia"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource TextOnPrimary}"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    Margin="0,8,0,24" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

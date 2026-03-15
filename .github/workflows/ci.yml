@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore MarbleCompanion.API/MarbleCompanion.API.csproj && dotnet restore MarbleCompanion.Tests/MarbleCompanion.Tests.csproj
+
+      - name: Build API
+        run: dotnet build MarbleCompanion.API/MarbleCompanion.API.csproj --no-restore -c Release
+
+      - name: Build Shared
+        run: dotnet build MarbleCompanion.Shared/MarbleCompanion.Shared.csproj --no-restore -c Release
+
+      - name: Run Tests
+        run: dotnet test MarbleCompanion.Tests/MarbleCompanion.Tests.csproj --no-restore -c Release --verbosity normal
