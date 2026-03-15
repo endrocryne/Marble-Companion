@@ -1,0 +1,70 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install MAUI Android workload
+        run: dotnet workload install maui-android
+
+      - name: Restore dependencies
+        run: dotnet restore MarbleCompanion.Mobile/MarbleCompanion.Mobile.csproj -f net8.0-android
+
+      - name: Build and publish Android APK
+        run: |
+          dotnet publish MarbleCompanion.Mobile/MarbleCompanion.Mobile.csproj \
+            -f net8.0-android \
+            -c Release \
+            -p:AndroidSdkDirectory=$ANDROID_SDK_ROOT \
+            -p:EmbedAssembliesIntoApk=true \
+            --no-restore
+
+      - name: Locate APK
+        id: find-apk
+        run: |
+          APK_PATH=$(find MarbleCompanion.Mobile/bin/Release/net8.0-android -name "*.apk" | head -1)
+          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
+          echo "Found APK: $APK_PATH"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: marble-companion-android
+          path: ${{ steps.find-apk.outputs.apk_path }}
+          retention-days: 90
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: "Marble Companion — Latest Android APK"
+          body: |
+            ## Marble Companion Android APK
+
+            This is the latest build of the Marble Companion app for Android.
+
+            ### Installing on your Pixel 10
+            1. Download `MarbleCompanion.apk` below.
+            2. Transfer it to your Pixel 10 (via USB, email, or Google Drive).
+            3. On your phone go to **Settings → Apps → Special app access → Install unknown apps** and allow installs from your chosen source.
+            4. Open the APK file on your phone and tap **Install**.
+
+            > Built automatically from the `main` branch.
+          files: ${{ steps.find-apk.outputs.apk_path }}
+          make_latest: true
+          prerelease: false
