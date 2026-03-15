@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+    x:Class="MarbleCompanion.Mobile.Views.SuggestionsPage"
+    x:DataType="vm:SuggestionsViewModel"
+    Title="Suggestions"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
+        <ScrollView>
+            <VerticalStackLayout Spacing="16" Padding="16">
+                <Label Text="Personalized Suggestions" Style="{StaticResource TitleLabel}" />
+                <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+                <CollectionView ItemsSource="{Binding Suggestions}">
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="32" Spacing="8">
+                            <Label Text="💡" FontSize="48" HorizontalTextAlignment="Center" />
+                            <Label Text="Loading suggestions..." TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" FontFamily="Georgia" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Frame Margin="0,0,0,8" Padding="16">
+                                <VerticalStackLayout Spacing="8">
+                                    <Label Text="{Binding Suggestion.Title}" FontSize="17" FontAttributes="Bold" FontFamily="Georgia" />
+                                    <Label Text="{Binding Suggestion.Description}" FontSize="14" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" LineBreakMode="WordWrap" />
+                                    <HorizontalStackLayout Spacing="12">
+                                        <Frame CornerRadius="10" Padding="8,2" HasShadow="False" BackgroundColor="{StaticResource Accent}"><Label Text="{Binding Suggestion.Impact, StringFormat='Impact: {0}'}" FontSize="11" FontFamily="Georgia" /></Frame>
+                                        <Frame CornerRadius="10" Padding="8,2" HasShadow="False" BackgroundColor="{StaticResource SurfaceLight}" BorderColor="{StaticResource DividerLight}"><Label Text="{Binding Suggestion.Effort, StringFormat='Effort: {0}'}" FontSize="11" FontFamily="Georgia" /></Frame>
+                                        <Label Text="{Binding Suggestion.EstimatedCO2eSaving, StringFormat='{0:F1} kg CO₂e'}" FontSize="12" TextColor="{StaticResource Success}" VerticalOptions="Center" FontFamily="Georgia" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+                                        <Button Text="I'll Do It" Padding="12,6" FontSize="12" HeightRequest="34"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SuggestionsViewModel}}, Path=MarkDoingCommand}" CommandParameter="{Binding Suggestion.Id}" />
+                                        <Button Text="Already Doing" Style="{StaticResource SecondaryButton}" Padding="12,6" FontSize="12" HeightRequest="34"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SuggestionsViewModel}}, Path=MarkAlreadyDoingCommand}" CommandParameter="{Binding Suggestion.Id}" />
+                                        <Button Text="Not Relevant" BackgroundColor="Transparent" TextColor="{StaticResource TextSecondary}" Padding="12,6" FontSize="12" HeightRequest="34" BorderWidth="0"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SuggestionsViewModel}}, Path=MarkNotRelevantCommand}" CommandParameter="{Binding Suggestion.Id}" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

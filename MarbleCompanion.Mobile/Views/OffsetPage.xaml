@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+    x:Class="MarbleCompanion.Mobile.Views.OffsetPage"
+    x:DataType="vm:OffsetViewModel"
+    Title="Offset"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy}">
+        <ScrollView>
+            <VerticalStackLayout Spacing="16" Padding="16">
+                <Label Text="Offset Your Impact" Style="{StaticResource TitleLabel}" />
+                <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+                <Label Text="{Binding SuccessMessage}" TextColor="{StaticResource Success}" IsVisible="{Binding SuccessMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <Frame Padding="16"><VerticalStackLayout HorizontalOptions="Center"><Label Text="{Binding UserTotalLP}" Style="{StaticResource StatValueLabel}" /><Label Text="Available LP" Style="{StaticResource StatCaptionLabel}" /></VerticalStackLayout></Frame>
+                    <Frame Grid.Column="1" Padding="16"><VerticalStackLayout HorizontalOptions="Center"><Label Text="{Binding TotalCO2eOffset, StringFormat='{0:F1} kg'}" Style="{StaticResource StatValueLabel}" /><Label Text="CO₂e Offset" Style="{StaticResource StatCaptionLabel}" /></VerticalStackLayout></Frame>
+                </Grid>
+                <Label Text="Choose a Tier" Style="{StaticResource SubtitleLabel}" />
+                <CollectionView ItemsSource="{Binding AvailableCredits}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Frame Margin="0,0,0,8" Padding="16">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Label Text="🌳" FontSize="28" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" FontSize="15" FontAttributes="Bold" FontFamily="Georgia" />
+                                        <Label Text="{Binding Description}" FontSize="12" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" MaxLines="2" />
+                                        <Label Text="{Binding CO2eOffsetKg, StringFormat='{0:F1} kg CO₂e'}" FontSize="12" TextColor="{StaticResource Success}" FontFamily="Georgia" />
+                                    </VerticalStackLayout>
+                                    <Button Grid.Column="2" Text="{Binding LPCost, StringFormat='{0} LP'}" Padding="12,6" FontSize="13" HeightRequest="36" VerticalOptions="Center"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OffsetViewModel}}, Path=RedeemCommand}" CommandParameter="{Binding Id}" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Label Text="History" Style="{StaticResource SubtitleLabel}" Margin="0,8,0,0" />
+                <CollectionView ItemsSource="{Binding History}">
+                    <CollectionView.EmptyView><Label Text="No offset history yet." TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" FontFamily="Georgia" /></CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding OffsetCreditName}" FontFamily="Georgia" FontAttributes="Bold" FontSize="14" />
+                                    <Label Text="{Binding RedeemedAt, StringFormat='{0:MMM dd, yyyy}'}" FontSize="12" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1" Text="{Binding CO2eOffsetKg, StringFormat='-{0:F1} kg'}" TextColor="{StaticResource Success}" FontAttributes="Bold" VerticalOptions="Center" FontFamily="Georgia" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

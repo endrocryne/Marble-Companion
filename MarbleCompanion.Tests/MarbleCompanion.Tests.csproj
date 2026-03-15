@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MarbleCompanion.Shared\MarbleCompanion.Shared.csproj" />
+    <ProjectReference Include="..\MarbleCompanion.API\MarbleCompanion.API.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

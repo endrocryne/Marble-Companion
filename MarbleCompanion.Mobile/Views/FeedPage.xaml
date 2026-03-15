@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    x:Class="MarbleCompanion.Mobile.Views.FeedPage"
+    x:DataType="vm:FeedViewModel"
+    Title="Feed"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
+        <CollectionView ItemsSource="{Binding FeedEvents}" Margin="16">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8" Padding="32">
+                    <Label Text="📰" FontSize="48" HorizontalTextAlignment="Center" />
+                    <Label Text="No feed events yet" Style="{StaticResource SubtitleLabel}" HorizontalTextAlignment="Center" />
+                    <Label Text="Activity from your friends will appear here." TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" FontFamily="Georgia" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="x:Object">
+                    <Frame Margin="0,0,0,10" Padding="16">
+                        <VerticalStackLayout Spacing="8">
+                            <Grid ColumnDefinitions="36,*,Auto" ColumnSpacing="10">
+                                <Frame WidthRequest="36" HeightRequest="36" CornerRadius="18" BackgroundColor="{StaticResource Accent}" Padding="0" HasShadow="False">
+                                    <Label Text="{Binding AvatarIndex}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontFamily="Georgia" />
+                                </Frame>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding DisplayName}" FontAttributes="Bold" FontFamily="Georgia" FontSize="14" />
+                                    <Label Text="{Binding EventType}" FontSize="11" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2" Text="{Binding OccurredAt, StringFormat='{0:MMM dd}'}" FontSize="11" TextColor="{StaticResource TextSecondary}" VerticalOptions="Start" FontFamily="Georgia" />
+                            </Grid>
+
+                            <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold" FontFamily="Georgia" />
+                            <Label Text="{Binding Description}" FontSize="13" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" LineBreakMode="WordWrap" />
+
+                            <!-- Reaction Buttons -->
+                            <HorizontalStackLayout Spacing="12" Margin="0,4,0,0">
+                                <Button Text="🌱" BackgroundColor="Transparent" TextColor="{StaticResource TextPrimary}" Padding="8,4" FontSize="18" HeightRequest="36" MinimumWidthRequest="44"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FeedViewModel}}, Path=ReactCommand}"
+                                        CommandParameter="{Binding Id}" />
+                                <Button Text="💪" BackgroundColor="Transparent" TextColor="{StaticResource TextPrimary}" Padding="8,4" FontSize="18" HeightRequest="36" MinimumWidthRequest="44" />
+                                <Button Text="🤝" BackgroundColor="Transparent" TextColor="{StaticResource TextPrimary}" Padding="8,4" FontSize="18" HeightRequest="36" MinimumWidthRequest="44" />
+                                <Button Text="🔥" BackgroundColor="Transparent" TextColor="{StaticResource TextPrimary}" Padding="8,4" FontSize="18" HeightRequest="36" MinimumWidthRequest="44" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+
+</ContentPage>

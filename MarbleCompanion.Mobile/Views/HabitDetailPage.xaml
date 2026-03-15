@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+    x:Class="MarbleCompanion.Mobile.Views.HabitDetailPage"
+    x:DataType="vm:HabitDetailViewModel"
+    Title="{Binding HabitName}"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+
+            <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}"
+                   IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+
+            <!-- Habit Header -->
+            <Frame Padding="20">
+                <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                    <Label Text="{Binding HabitName}" Style="{StaticResource TitleLabel}" HorizontalTextAlignment="Center" />
+                    <Label Text="{Binding Category}" TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" FontFamily="Georgia" />
+                    <Label Text="{Binding Frequency, StringFormat='Frequency: {0}'}" TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" FontFamily="Georgia" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Streak Stats -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Frame Padding="16">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="{Binding CurrentStreak}" Style="{StaticResource StatValueLabel}" />
+                        <Label Text="Current Streak" Style="{StaticResource StatCaptionLabel}" />
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Grid.Column="1" Padding="16">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="{Binding LongestStreak}" Style="{StaticResource StatValueLabel}" />
+                        <Label Text="Longest Streak" Style="{StaticResource StatCaptionLabel}" />
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <!-- Heatmap Calendar -->
+            <Frame Padding="12">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Activity" Style="{StaticResource SubtitleLabel}" />
+                    <controls:HeatmapCalendarControl
+                        x:Name="heatmapControl"
+                        HeightRequest="120"
+                        WeeksToShow="13" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Last Check-in -->
+            <Label TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" FontFamily="Georgia">
+                <Label.Text>
+                    <Binding Path="LastCheckinAt" StringFormat="Last check-in: {0:MMM dd, yyyy}" FallbackValue="No check-ins yet" />
+                </Label.Text>
+            </Label>
+
+            <!-- Check-in Button -->
+            <Button
+                Text="{Binding IsCheckedInToday, Converter={x:StaticResource BoolToStringConverter}, ConverterParameter='Already checked in today|Check In Now'}"
+                IsEnabled="{Binding IsCheckedInToday, Converter={x:StaticResource InvertedBoolConverter}}"
+                Command="{Binding CheckinCommand}"
+                Margin="0,8,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

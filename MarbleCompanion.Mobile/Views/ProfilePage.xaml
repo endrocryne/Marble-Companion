@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+    x:Class="MarbleCompanion.Mobile.Views.ProfilePage"
+    x:DataType="vm:ProfileViewModel"
+    Title="Profile"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy}">
+        <ScrollView>
+            <VerticalStackLayout Spacing="16" Padding="16">
+                <Label Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+                <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
+                    <Frame WidthRequest="80" HeightRequest="80" CornerRadius="40" BackgroundColor="{StaticResource Accent}" Padding="0" HasShadow="False" HorizontalOptions="Center">
+                        <Label Text="{Binding AvatarIndex}" FontSize="32" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontFamily="Georgia" />
+                    </Frame>
+                    <Label Text="{Binding DisplayName}" Style="{StaticResource TitleLabel}" HorizontalTextAlignment="Center" />
+                    <Label Text="{Binding Email}" Style="{StaticResource CaptionLabel}" HorizontalTextAlignment="Center" />
+                    <Label Text="{Binding JoinedAt, StringFormat='Joined {0:MMM yyyy}'}" Style="{StaticResource CaptionLabel}" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                    <Frame Padding="12"><VerticalStackLayout HorizontalOptions="Center"><Label Text="{Binding TotalLP}" Style="{StaticResource StatValueLabel}" /><Label Text="Leaf Points" Style="{StaticResource StatCaptionLabel}" /></VerticalStackLayout></Frame>
+                    <Frame Grid.Column="1" Padding="12"><VerticalStackLayout HorizontalOptions="Center"><Label Text="{Binding CurrentStreak}" Style="{StaticResource StatValueLabel}" /><Label Text="Streak" Style="{StaticResource StatCaptionLabel}" /></VerticalStackLayout></Frame>
+                    <Frame Grid.Column="2" Padding="12"><VerticalStackLayout HorizontalOptions="Center"><Label Text="{Binding TotalCO2eSaved, StringFormat='{0:F0}'}" Style="{StaticResource StatValueLabel}" /><Label Text="kg CO₂e" Style="{StaticResource StatCaptionLabel}" /></VerticalStackLayout></Frame>
+                </Grid>
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                    <Frame Padding="12"><VerticalStackLayout HorizontalOptions="Center"><Label Text="{Binding FriendsCount}" Style="{StaticResource StatValueLabel}" /><Label Text="Friends" Style="{StaticResource StatCaptionLabel}" /></VerticalStackLayout></Frame>
+                    <Frame Grid.Column="1" Padding="12"><VerticalStackLayout HorizontalOptions="Center"><Label Text="{Binding AchievementsUnlocked}" Style="{StaticResource StatValueLabel}" /><Label Text="Achievements" Style="{StaticResource StatCaptionLabel}" /></VerticalStackLayout></Frame>
+                </Grid>
+                <Label Text="Pinned Achievements" Style="{StaticResource SubtitleLabel}" />
+                <CollectionView ItemsSource="{Binding PinnedAchievements}" ItemsLayout="HorizontalList" HeightRequest="80">
+                    <CollectionView.EmptyView><Label Text="No achievements yet" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" /></CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:Object">
+                            <Frame Margin="0,0,8,0" Padding="12" WidthRequest="120">
+                                <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                                    <Label Text="🏅" FontSize="24" HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding Achievement.Name}" FontSize="11" FontFamily="Georgia" HorizontalTextAlignment="Center" MaxLines="1" LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Text="Settings" Style="{StaticResource SecondaryButton}" Command="{Binding NavigateToSettingsCommand}" Margin="0,8,0,16" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

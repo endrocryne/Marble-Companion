@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    x:Class="MarbleCompanion.Mobile.Views.HabitLibraryPage"
+    x:DataType="vm:HabitLibraryViewModel"
+    Title="Habit Library"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16" RowSpacing="12">
+
+        <SearchBar Placeholder="Search habits..." Grid.Row="0" />
+
+        <!-- Category Filter Chips -->
+        <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <HorizontalStackLayout Spacing="8">
+                <Frame Style="{StaticResource ChipFrame}"><Frame.GestureRecognizers><TapGestureRecognizer Tapped="OnClearFilters" /></Frame.GestureRecognizers><Label Text="All" FontFamily="Georgia" FontSize="13" /></Frame>
+                <Frame Style="{StaticResource ChipFrame}"><Frame.GestureRecognizers><TapGestureRecognizer Tapped="OnFilterTransport" /></Frame.GestureRecognizers><Label Text="🚗 Transport" FontFamily="Georgia" FontSize="13" /></Frame>
+                <Frame Style="{StaticResource ChipFrame}"><Frame.GestureRecognizers><TapGestureRecognizer Tapped="OnFilterFood" /></Frame.GestureRecognizers><Label Text="🥗 Food" FontFamily="Georgia" FontSize="13" /></Frame>
+                <Frame Style="{StaticResource ChipFrame}"><Frame.GestureRecognizers><TapGestureRecognizer Tapped="OnFilterEnergy" /></Frame.GestureRecognizers><Label Text="⚡ Energy" FontFamily="Georgia" FontSize="13" /></Frame>
+                <Frame Style="{StaticResource ChipFrame}"><Frame.GestureRecognizers><TapGestureRecognizer Tapped="OnFilterShopping" /></Frame.GestureRecognizers><Label Text="🛍️ Shopping" FontFamily="Georgia" FontSize="13" /></Frame>
+                <Frame Style="{StaticResource ChipFrame}"><Frame.GestureRecognizers><TapGestureRecognizer Tapped="OnFilterTravel" /></Frame.GestureRecognizers><Label Text="✈️ Travel" FontFamily="Georgia" FontSize="13" /></Frame>
+                <Frame Style="{StaticResource ChipFrame}"><Frame.GestureRecognizers><TapGestureRecognizer Tapped="OnFilterWaste" /></Frame.GestureRecognizers><Label Text="♻️ Waste" FontFamily="Georgia" FontSize="13" /></Frame>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <Label Grid.Row="2" Text="{Binding ErrorMessage}" TextColor="{StaticResource Error}" IsVisible="{Binding ErrorMessage, Converter={x:StaticResource IsNotNullConverter}}" />
+
+        <CollectionView Grid.Row="2" ItemsSource="{Binding LibraryItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="x:Object">
+                    <Frame Margin="0,0,0,8" Padding="16">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12">
+                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" FontFamily="Georgia" />
+                            <Label Grid.Row="1" Text="{Binding Description}" TextColor="{StaticResource TextSecondary}" FontFamily="Georgia" FontSize="13" LineBreakMode="TailTruncation" MaxLines="2" />
+                            <HorizontalStackLayout Grid.Row="2" Spacing="8">
+                                <Label Text="{Binding Category}" FontFamily="Georgia" FontSize="12" TextColor="{StaticResource Primary}" />
+                                <Label Text="{Binding Frequency}" FontFamily="Georgia" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                                <Label Text="{Binding EstimatedCO2ePerAction, StringFormat='{0:F1} kg CO₂e'}" FontFamily="Georgia" FontSize="12" TextColor="{StaticResource Success}" />
+                            </HorizontalStackLayout>
+                            <Button Grid.Column="1" Grid.RowSpan="3" Text="Add" WidthRequest="70" HeightRequest="40" Padding="0" FontSize="14"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HabitLibraryViewModel}}, Path=AddHabitCommand}"
+                                    CommandParameter="{Binding Id}" VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>
