@@ -24,6 +24,10 @@
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\MarbleCompanion.Shared\MarbleCompanion.Shared.csproj" />
   </ItemGroup>
