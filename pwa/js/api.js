@@ -83,7 +83,7 @@ async function request(method, path, body, opts = {}) {
     let msg = `HTTP ${res.status}`;
     try {
       const err = await res.json();
-      msg = err.message || err.title || JSON.stringify(err);
+      msg = err.message || err.title || 'An unexpected error occurred. Please try again.';
     } catch { /* ignore */ }
     throw new Error(msg);
   }

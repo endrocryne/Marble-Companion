@@ -129,13 +129,13 @@ function renderBody(body) {
     .split('\n\n')
     .filter(Boolean)
     .map((para) => {
-      if (para.startsWith('## ')) return `<h2 style="font-size:18px;font-weight:700;margin:20px 0 8px">${escapeHtml(para.slice(3))}</h2>`;
-      if (para.startsWith('# '))  return `<h2 style="font-size:20px;font-weight:800;margin:20px 0 8px">${escapeHtml(para.slice(2))}</h2>`;
+      if (para.startsWith('## ')) return `<h2 class="content-h2">${escapeHtml(para.slice(3))}</h2>`;
+      if (para.startsWith('# '))  return `<h1 class="content-h1">${escapeHtml(para.slice(2))}</h1>`;
       if (para.startsWith('- '))  {
         const items = para.split('\n').filter(l => l.startsWith('- '));
-        return `<ul style="padding-left:20px;margin:8px 0">${items.map(l => `<li style="margin-bottom:4px">${escapeHtml(l.slice(2))}</li>`).join('')}</ul>`;
+        return `<ul class="content-list">${items.map(l => `<li>${escapeHtml(l.slice(2))}</li>`).join('')}</ul>`;
       }
-      return `<p style="margin-bottom:12px">${escapeHtml(para)}</p>`;
+      return `<p class="content-para">${escapeHtml(para)}</p>`;
     })
     .join('');
 }

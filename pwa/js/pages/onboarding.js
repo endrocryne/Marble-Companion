@@ -112,7 +112,7 @@ function setupAuthButtons() {
 
 // Google OAuth client ID - configure in index.html or via window.GOOGLE_CLIENT_ID
 // Set window.GOOGLE_CLIENT_ID = 'your-client-id' in a config script before loading the app
-const GOOGLE_CLIENT_ID = (typeof window !== 'undefined' && window.GOOGLE_CLIENT_ID) || '';
+const GOOGLE_CLIENT_ID = window.GOOGLE_CLIENT_ID || '';
 
 async function handleGoogleSignIn() {
   if (typeof google === 'undefined') {

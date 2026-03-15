@@ -1845,3 +1845,12 @@ select.form-input {
    Page subtitle
    =========================== */
 .page-subtitle { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; }
+
+/* ===========================
+   Content article body
+   =========================== */
+.content-h1   { font-size: 20px; font-weight: 800; margin: 20px 0 8px; color: var(--color-text-primary); }
+.content-h2   { font-size: 18px; font-weight: 700; margin: 20px 0 8px; color: var(--color-text-primary); }
+.content-para { margin-bottom: 12px; font-size: 15px; line-height: 1.6; color: var(--color-text-primary); }
+.content-list { padding-left: 20px; margin: 8px 0; }
+.content-list li { margin-bottom: 4px; font-size: 15px; line-height: 1.6; color: var(--color-text-primary); }

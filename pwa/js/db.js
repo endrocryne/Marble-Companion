@@ -68,15 +68,8 @@ export async function dbDel(storeName, key) {
 export async function dbGetAll(storeName) {
   const db = await openDB();
   return new Promise((resolve, reject) => {
-    const tx     = db.transaction(storeName, 'readonly');
-    const store  = tx.objectStore(storeName);
-    const keys   = [];
-    const values = [];
-
-    const keyCursor = store.openKeyCursor();
-    keyCursor.onsuccess = () => {};
-
-    const req = store.getAll();
+    const tx  = db.transaction(storeName, 'readonly');
+    const req = tx.objectStore(storeName).getAll();
     req.onsuccess = () => resolve(req.result);
     req.onerror   = () => reject(req.error);
   });

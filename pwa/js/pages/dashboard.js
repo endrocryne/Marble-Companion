@@ -12,6 +12,8 @@ const PERIODS = [
   { label: 'Year',  value: 'year' },
 ];
 
+const GLOBAL_WEEKLY_AVG_CO2E = 5.5; // kg/week global average approximation
+
 const CAT_COLORS = {
   Transport: '#3B82F6',
   Food:      '#22C55E',
@@ -320,9 +322,9 @@ function renderCategoryList(cats) {
 function renderVsAverage(summary) {
   const el = document.getElementById('vs-average');
   if (!el) return;
-  const yours   = summary.totalCO2eSaved ?? 0;
-  const avg      = 5.5; // kg/week global average approximation
-  const better   = yours >= avg;
+  const yours  = summary.totalCO2eSaved ?? 0;
+  const avg    = GLOBAL_WEEKLY_AVG_CO2E;
+  const better = yours >= avg;
 
   el.innerHTML = `
     <div style="display:flex;align-items:center;gap:16px;padding:12px;background:${better?'rgba(58,183,149,0.08)':'rgba(224,122,95,0.08)'};border-radius:12px">
