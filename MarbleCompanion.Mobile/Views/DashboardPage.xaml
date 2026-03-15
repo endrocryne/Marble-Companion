@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+             xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+             x:Class="MarbleCompanion.Mobile.Views.DashboardPage"
+             x:DataType="vm:DashboardViewModel"
+             Title="Dashboard"
+             BackgroundColor="{StaticResource BackgroundLight}">
+
+    <RefreshView Command="{Binding LoadCommand}"
+                 IsRefreshing="{Binding IsBusy}">
+        <ScrollView Padding="20,16">
+            <VerticalStackLayout Spacing="20">
+
+                <!-- Page Header -->
+                <Label Text="Dashboard"
+                       FontFamily="Georgia"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}" />
+
+                <!-- ════════════════════════════════════════════
+                     Period Selector Chips
+                     ════════════════════════════════════════════ -->
+                <ScrollView Orientation="Horizontal"
+                            HorizontalScrollBarVisibility="Never">
+                    <HorizontalStackLayout Spacing="10"
+                                           x:Name="PeriodSelector">
+                        <Frame x:Name="DailyChip"
+                               Padding="14,8"
+                               CornerRadius="20"
+                               BackgroundColor="{StaticResource Primary}"
+                               BorderColor="{StaticResource Primary}"
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDailyChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="Daily"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextOnPrimary}"
+                                   x:Name="DailyChipLabel" />
+                        </Frame>
+
+                        <Frame x:Name="WeeklyChip"
+                               Padding="14,8"
+                               CornerRadius="20"
+                               BackgroundColor="{StaticResource SurfaceLight}"
+                               BorderColor="{StaticResource DividerLight}"
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnWeeklyChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="Weekly"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   x:Name="WeeklyChipLabel" />
+                        </Frame>
+
+                        <Frame x:Name="MonthlyChip"
+                               Padding="14,8"
+                               CornerRadius="20"
+                               BackgroundColor="{StaticResource SurfaceLight}"
+                               BorderColor="{StaticResource DividerLight}"
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMonthlyChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="Monthly"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   x:Name="MonthlyChipLabel" />
+                        </Frame>
+
+                        <Frame x:Name="YearlyChip"
+                               Padding="14,8"
+                               CornerRadius="20"
+                               BackgroundColor="{StaticResource SurfaceLight}"
+                               BorderColor="{StaticResource DividerLight}"
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnYearlyChipTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="Yearly"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   x:Name="YearlyChipLabel" />
+                        </Frame>
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <!-- ════════════════════════════════════════════
+                     Stats Cards Row
+                     ════════════════════════════════════════════ -->
+                <Grid ColumnDefinitions="*,*,*"
+                      ColumnSpacing="10">
+
+                    <!-- Daily CO₂e -->
+                    <Frame Grid.Column="0"
+                           Padding="12"
+                           CornerRadius="14"
+                           BackgroundColor="{StaticResource CardLight}"
+                           BorderColor="{StaticResource DividerLight}"
+                           HasShadow="False">
+                        <VerticalStackLayout Spacing="4"
+                                             HorizontalOptions="Center">
+                            <Label Text="Daily"
+                                   FontFamily="Georgia"
+                                   FontSize="11"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding DailyCO2e, StringFormat='{0:F1}'}"
+                                   FontFamily="Georgia"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="kg CO₂e"
+                                   FontFamily="Georgia"
+                                   FontSize="10"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Weekly CO₂e -->
+                    <Frame Grid.Column="1"
+                           Padding="12"
+                           CornerRadius="14"
+                           BackgroundColor="{StaticResource CardLight}"
+                           BorderColor="{StaticResource DividerLight}"
+                           HasShadow="False">
+                        <VerticalStackLayout Spacing="4"
+                                             HorizontalOptions="Center">
+                            <Label Text="Weekly"
+                                   FontFamily="Georgia"
+                                   FontSize="11"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding WeeklyCO2e, StringFormat='{0:F1}'}"
+                                   FontFamily="Georgia"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Secondary}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="kg CO₂e"
+                                   FontFamily="Georgia"
+                                   FontSize="10"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Monthly CO₂e -->
+                    <Frame Grid.Column="2"
+                           Padding="12"
+                           CornerRadius="14"
+                           BackgroundColor="{StaticResource CardLight}"
+                           BorderColor="{StaticResource DividerLight}"
+                           HasShadow="False">
+                        <VerticalStackLayout Spacing="4"
+                                             HorizontalOptions="Center">
+                            <Label Text="Monthly"
+                                   FontFamily="Georgia"
+                                   FontSize="11"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding MonthlyCO2e, StringFormat='{0:F1}'}"
+                                   FontFamily="Georgia"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Accent}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="kg CO₂e"
+                                   FontFamily="Georgia"
+                                   FontSize="10"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- ════════════════════════════════════════════
+                     Line Chart – Trend
+                     ════════════════════════════════════════════ -->
+                <Frame Padding="16"
+                       CornerRadius="16"
+                       BackgroundColor="{StaticResource CardLight}"
+                       BorderColor="{StaticResource DividerLight}"
+                       HasShadow="False">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="CO₂e Trend"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}" />
+
+                        <controls:LineChartControl x:Name="TrendChart"
+                                                   HeightRequest="220"
+                                                   LineColor="{StaticResource Primary}"
+                                                   ShowGrid="True" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- ════════════════════════════════════════════
+                     Donut Chart – Category Breakdown
+                     ════════════════════════════════════════════ -->
+                <Frame Padding="16"
+                       CornerRadius="16"
+                       BackgroundColor="{StaticResource CardLight}"
+                       BorderColor="{StaticResource DividerLight}"
+                       HasShadow="False">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Category Breakdown"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}" />
+
+                        <controls:DonutChartControl x:Name="CategoryDonut"
+                                                    HeightRequest="220"
+                                                    InnerRadiusRatio="0.6" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- ════════════════════════════════════════════
+                     You vs Average
+                     ════════════════════════════════════════════ -->
+                <Frame Padding="16"
+                       CornerRadius="16"
+                       BackgroundColor="{StaticResource CardLight}"
+                       BorderColor="{StaticResource DividerLight}"
+                       HasShadow="False">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="You vs Average"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}" />
+
+                        <Grid ColumnDefinitions="*,*"
+                              ColumnSpacing="14">
+
+                            <!-- Your CO₂e -->
+                            <Frame Grid.Column="0"
+                                   Padding="14"
+                                   CornerRadius="12"
+                                   BackgroundColor="{StaticResource BackgroundLight}"
+                                   BorderColor="{StaticResource DividerLight}"
+                                   HasShadow="False">
+                                <VerticalStackLayout Spacing="6"
+                                                     HorizontalOptions="Center">
+                                    <Label Text="🌱"
+                                           FontSize="28"
+                                           HorizontalTextAlignment="Center" />
+                                    <Label Text="Your CO₂e"
+                                           FontFamily="Georgia"
+                                           FontSize="12"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding UserCO2e, StringFormat='{0:N0}'}"
+                                           FontFamily="Georgia"
+                                           FontSize="22"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource Success}"
+                                           HorizontalTextAlignment="Center" />
+                                    <Label Text="kg / year"
+                                           FontFamily="Georgia"
+                                           FontSize="11"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           HorizontalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </Frame>
+
+                            <!-- Average CO₂e -->
+                            <Frame Grid.Column="1"
+                                   Padding="14"
+                                   CornerRadius="12"
+                                   BackgroundColor="{StaticResource BackgroundLight}"
+                                   BorderColor="{StaticResource DividerLight}"
+                                   HasShadow="False">
+                                <VerticalStackLayout Spacing="6"
+                                                     HorizontalOptions="Center">
+                                    <Label Text="🌍"
+                                           FontSize="28"
+                                           HorizontalTextAlignment="Center" />
+                                    <Label Text="Average"
+                                           FontFamily="Georgia"
+                                           FontSize="12"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding AverageUserCO2e, StringFormat='{0:N0}'}"
+                                           FontFamily="Georgia"
+                                           FontSize="22"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource Warning}"
+                                           HorizontalTextAlignment="Center" />
+                                    <Label Text="kg / year"
+                                           FontFamily="Georgia"
+                                           FontSize="11"
+                                           TextColor="{StaticResource TextSecondary}"
+                                           HorizontalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </Grid>
+
+                        <!-- Comparison bar -->
+                        <Grid ColumnDefinitions="*"
+                              HeightRequest="8"
+                              Margin="0,4,0,0">
+                            <BoxView Grid.Column="0"
+                                     CornerRadius="4"
+                                     Color="{StaticResource DividerLight}" />
+                            <BoxView x:Name="ComparisonBar"
+                                     Grid.Column="0"
+                                     CornerRadius="4"
+                                     Color="{StaticResource Success}"
+                                     HorizontalOptions="Start" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- ════════════════════════════════════════════
+                     Streak & LP Cards
+                     ════════════════════════════════════════════ -->
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="12">
+
+                    <!-- Streak Card -->
+                    <Frame Grid.Column="0"
+                           Padding="16"
+                           CornerRadius="16"
+                           BackgroundColor="{StaticResource CardLight}"
+                           BorderColor="{StaticResource DividerLight}"
+                           HasShadow="False">
+                        <VerticalStackLayout Spacing="6"
+                                             HorizontalOptions="Center">
+                            <Label Text="🔥"
+                                   FontSize="32"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding CurrentStreak}"
+                                   FontFamily="Georgia"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Warning}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="Day Streak"
+                                   FontFamily="Georgia"
+                                   FontSize="13"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- LP Card -->
+                    <Frame Grid.Column="1"
+                           Padding="16"
+                           CornerRadius="16"
+                           BackgroundColor="{StaticResource CardLight}"
+                           BorderColor="{StaticResource DividerLight}"
+                           HasShadow="False">
+                        <VerticalStackLayout Spacing="6"
+                                             HorizontalOptions="Center">
+                            <Label Text="💎"
+                                   FontSize="32"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding TotalLP, StringFormat='{0:N0}'}"
+                                   FontFamily="Georgia"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="Leaf Points"
+                                   FontFamily="Georgia"
+                                   FontSize="13"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- Error Label -->
+                <Label x:Name="ErrorLabel"
+                       Text="{Binding ErrorMessage}"
+                       FontFamily="Georgia"
+                       FontSize="14"
+                       TextColor="{StaticResource Error}"
+                       HorizontalTextAlignment="Center"
+                       IsVisible="False" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+             xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+             x:Class="MarbleCompanion.Mobile.Views.DetailedLogPage"
+             x:DataType="vm:DetailedLogViewModel"
+             Title="Detailed Log"
+             BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid RowDefinitions="*" ColumnDefinitions="*">
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="0" Grid.Column="0"
+                    Padding="20,16">
+            <VerticalStackLayout Spacing="20">
+
+                <!-- Page Header -->
+                <Label Text="Detailed Log"
+                       FontFamily="Georgia"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}"
+                       HorizontalOptions="Start" />
+
+                <Label Text="Fill in the details for your action."
+                       FontFamily="Georgia"
+                       FontSize="14"
+                       TextColor="{StaticResource TextSecondary}" />
+
+                <!-- ════════════════════════════════════════════
+                     Transport Section
+                     ════════════════════════════════════════════ -->
+                <VerticalStackLayout x:Name="TransportSection"
+                                     Spacing="14"
+                                     IsVisible="False">
+                    <Label Text="🚗 Transport"
+                           FontFamily="Georgia"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource CategoryTransport}" />
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Distance (km)"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Entry Text="{Binding DistanceKm}"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               Keyboard="Numeric"
+                               Placeholder="e.g. 15.5"
+                               PlaceholderColor="{StaticResource DisabledLight}"
+                               TextColor="{StaticResource TextPrimary}"
+                               BackgroundColor="{StaticResource SurfaceLight}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Vehicle Type"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Picker Title="Select vehicle type"
+                                FontFamily="Georgia"
+                                FontSize="16"
+                                TextColor="{StaticResource TextPrimary}"
+                                TitleColor="{StaticResource DisabledLight}"
+                                ItemsSource="{Binding VehicleTypes}"
+                                SelectedItem="{Binding VehicleType}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- ════════════════════════════════════════════
+                     Food Section
+                     ════════════════════════════════════════════ -->
+                <VerticalStackLayout x:Name="FoodSection"
+                                     Spacing="14"
+                                     IsVisible="False">
+                    <Label Text="🥗 Food"
+                           FontFamily="Georgia"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource CategoryFood}" />
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Meal Type"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Picker Title="Select meal type"
+                                FontFamily="Georgia"
+                                FontSize="16"
+                                TextColor="{StaticResource TextPrimary}"
+                                TitleColor="{StaticResource DisabledLight}"
+                                ItemsSource="{Binding MealTypes}"
+                                SelectedItem="{Binding MealType}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Protein Source"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Picker Title="Select protein source"
+                                FontFamily="Georgia"
+                                FontSize="16"
+                                TextColor="{StaticResource TextPrimary}"
+                                TitleColor="{StaticResource DisabledLight}"
+                                ItemsSource="{Binding ProteinSources}"
+                                SelectedItem="{Binding ProteinSource}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- ════════════════════════════════════════════
+                     Energy Section
+                     ════════════════════════════════════════════ -->
+                <VerticalStackLayout x:Name="EnergySection"
+                                     Spacing="14"
+                                     IsVisible="False">
+                    <Label Text="⚡ Energy"
+                           FontFamily="Georgia"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource CategoryEnergy}" />
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Energy Saved (kWh)"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Entry Text="{Binding KWh}"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               Keyboard="Numeric"
+                               Placeholder="e.g. 3.2"
+                               PlaceholderColor="{StaticResource DisabledLight}"
+                               TextColor="{StaticResource TextPrimary}"
+                               BackgroundColor="{StaticResource SurfaceLight}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- ════════════════════════════════════════════
+                     Shopping Section
+                     ════════════════════════════════════════════ -->
+                <VerticalStackLayout x:Name="ShoppingSection"
+                                     Spacing="14"
+                                     IsVisible="False">
+                    <Label Text="🛍️ Shopping"
+                           FontFamily="Georgia"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource CategoryShopping}" />
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Item Category"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Picker Title="Select item category"
+                                FontFamily="Georgia"
+                                FontSize="16"
+                                TextColor="{StaticResource TextPrimary}"
+                                TitleColor="{StaticResource DisabledLight}"
+                                ItemsSource="{Binding ItemCategories}"
+                                SelectedItem="{Binding ItemCategory}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- ════════════════════════════════════════════
+                     Travel Section
+                     ════════════════════════════════════════════ -->
+                <VerticalStackLayout x:Name="TravelSection"
+                                     Spacing="14"
+                                     IsVisible="False">
+                    <Label Text="✈️ Travel"
+                           FontFamily="Georgia"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource CategoryTravel}" />
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Origin Airport"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Entry Text="{Binding OriginAirport}"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               Placeholder="e.g. JFK"
+                               PlaceholderColor="{StaticResource DisabledLight}"
+                               TextColor="{StaticResource TextPrimary}"
+                               BackgroundColor="{StaticResource SurfaceLight}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Destination Airport"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Entry Text="{Binding DestinationAirport}"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               Placeholder="e.g. LAX"
+                               PlaceholderColor="{StaticResource DisabledLight}"
+                               TextColor="{StaticResource TextPrimary}"
+                               BackgroundColor="{StaticResource SurfaceLight}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- ════════════════════════════════════════════
+                     Waste Section
+                     ════════════════════════════════════════════ -->
+                <VerticalStackLayout x:Name="WasteSection"
+                                     Spacing="14"
+                                     IsVisible="False">
+                    <Label Text="♻️ Waste"
+                           FontFamily="Georgia"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource CategoryWaste}" />
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Waste Type"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Picker Title="Select waste type"
+                                FontFamily="Georgia"
+                                FontSize="16"
+                                TextColor="{StaticResource TextPrimary}"
+                                TitleColor="{StaticResource DisabledLight}"
+                                ItemsSource="{Binding WasteTypes}"
+                                SelectedItem="{Binding WasteType}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Weight (kg)"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Entry Text="{Binding WeightKg}"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               Keyboard="Numeric"
+                               Placeholder="e.g. 2.0"
+                               PlaceholderColor="{StaticResource DisabledLight}"
+                               TextColor="{StaticResource TextPrimary}"
+                               BackgroundColor="{StaticResource SurfaceLight}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Submit Button -->
+                <Button Text="Submit"
+                        FontFamily="Georgia"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        Command="{Binding SubmitCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="{StaticResource TextOnPrimary}"
+                        CornerRadius="14"
+                        HeightRequest="52"
+                        Margin="0,8,0,0" />
+
+                <!-- Error Label -->
+                <Label x:Name="ErrorLabel"
+                       Text="{Binding ErrorMessage}"
+                       FontFamily="Georgia"
+                       FontSize="14"
+                       TextColor="{StaticResource Error}"
+                       HorizontalTextAlignment="Center"
+                       IsVisible="False" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Loading Overlay -->
+        <Grid Grid.Row="0" Grid.Column="0"
+              BackgroundColor="#80000000"
+              IsVisible="{Binding IsBusy}"
+              InputTransparent="False">
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               Color="{StaticResource Accent}"
+                               HeightRequest="48"
+                               WidthRequest="48"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+        </Grid>
+
+        <!-- Success Overlay -->
+        <Grid Grid.Row="0" Grid.Column="0"
+              BackgroundColor="#80000000"
+              IsVisible="{Binding ShowSuccess}"
+              InputTransparent="False">
+            <Frame Padding="28,32"
+                   CornerRadius="20"
+                   BackgroundColor="{StaticResource CardLight}"
+                   BorderColor="{StaticResource DividerLight}"
+                   HasShadow="True"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="280">
+                <VerticalStackLayout Spacing="16"
+                                     HorizontalOptions="Center">
+                    <Label Text="✅"
+                           FontSize="48"
+                           HorizontalTextAlignment="Center" />
+
+                    <Label Text="Logged!"
+                           FontFamily="Georgia"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Success}"
+                           HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout Spacing="6"
+                                           HorizontalOptions="Center">
+                        <Label Text="+"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                        <Label Text="{Binding LpAwarded}"
+                               FontFamily="Georgia"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                        <Label Text="LP"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6"
+                                           HorizontalOptions="Center">
+                        <Label Text="{Binding Co2eSaved, StringFormat='{0:F2}'}"
+                               FontFamily="Georgia"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Secondary}"
+                               VerticalOptions="Center" />
+                        <Label Text="kg CO₂e saved"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <Button Text="Done"
+                            FontFamily="Georgia"
+                            FontSize="16"
+                            Command="{Binding DismissSuccessCommand}"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="{StaticResource TextOnPrimary}"
+                            CornerRadius="12"
+                            HeightRequest="48"
+                            Margin="0,8,0,0" />
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+    x:Class="MarbleCompanion.Mobile.Views.OnboardingPage"
+    x:DataType="vm:OnboardingViewModel"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False"
+    BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="0">
+
+        <!-- Skip Button -->
+        <Button
+            Grid.Row="0"
+            Text="Skip"
+            Style="{StaticResource SecondaryButton}"
+            HorizontalOptions="End"
+            Margin="0,16,24,0"
+            Command="{Binding SkipCommand}"
+            BorderWidth="0"
+            BackgroundColor="Transparent"
+            TextColor="{StaticResource TextSecondary}" />
+
+        <!-- Carousel Slides -->
+        <CarouselView
+            Grid.Row="1"
+            Position="{Binding CurrentPage}"
+            Loop="False"
+            IndicatorView="slideIndicator"
+            VerticalOptions="Center">
+            <CarouselView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>slide1</x:String>
+                    <x:String>slide2</x:String>
+                    <x:String>slide3</x:String>
+                </x:Array>
+            </CarouselView.ItemsSource>
+            <CarouselView.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <VerticalStackLayout
+                        Spacing="20"
+                        Padding="32,0"
+                        VerticalOptions="Center">
+
+                        <!-- Illustration Placeholder -->
+                        <Frame
+                            HeightRequest="200"
+                            WidthRequest="200"
+                            CornerRadius="100"
+                            BackgroundColor="{StaticResource Accent}"
+                            HorizontalOptions="Center"
+                            HasShadow="False"
+                            Padding="0">
+                            <Label
+                                FontSize="72"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide1">
+                                        <Setter Property="Text" Value="🌳" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide2">
+                                        <Setter Property="Text" Value="📊" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide3">
+                                        <Setter Property="Text" Value="🤝" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Frame>
+
+                        <!-- Title -->
+                        <Label
+                            Style="{StaticResource TitleLabel}"
+                            HorizontalTextAlignment="Center">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide1">
+                                    <Setter Property="Text" Value="Grow your tree, grow the planet" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide2">
+                                    <Setter Property="Text" Value="Track your footprint, own your impact" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide3">
+                                    <Setter Property="Text" Value="Challenge friends, not the algorithm" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <!-- Description -->
+                        <Label
+                            FontSize="15"
+                            TextColor="{StaticResource TextSecondary}"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="WordWrap">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide1">
+                                    <Setter Property="Text" Value="Every sustainable choice you make helps your companion tree grow through 8 beautiful stages. Your actions have real impact." />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide2">
+                                    <Setter Property="Text" Value="Log your daily habits and see exactly how much CO₂ you're saving. Knowledge is the first step to meaningful change." />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding .}" Value="slide3">
+                                    <Setter Property="Text" Value="Join challenges with friends, share achievements, and build a community that cares about the planet together." />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <!-- Bottom Section -->
+        <VerticalStackLayout
+            Grid.Row="2"
+            Spacing="12"
+            Padding="32,0,32,40">
+
+            <!-- Indicator -->
+            <IndicatorView
+                x:Name="slideIndicator"
+                IndicatorColor="{StaticResource DisabledLight}"
+                SelectedIndicatorColor="{StaticResource Primary}"
+                IndicatorSize="10"
+                HorizontalOptions="Center"
+                Margin="0,0,0,16" />
+
+            <!-- Error Message -->
+            <Label
+                Text="{Binding ErrorMessage}"
+                TextColor="{StaticResource Error}"
+                HorizontalTextAlignment="Center"
+                IsVisible="{Binding ErrorMessage, Converter={StaticResource IsNotNullConverter}}" />
+
+            <!-- Loading -->
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                HorizontalOptions="Center" />
+
+            <!-- Sign In with Google -->
+            <Button
+                Text="Continue with Google"
+                Command="{Binding SignInWithGoogleCommand}"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                ImageSource="google_icon.png" />
+
+            <!-- Sign In with Microsoft -->
+            <Button
+                Text="Continue with Microsoft"
+                Style="{StaticResource SecondaryButton}"
+                Command="{Binding SignInWithMicrosoftCommand}"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}" />
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>
