@@ -3,7 +3,9 @@
  * Handles all HTTP communication with the backend, JWT auth, and token refresh.
  */
 
-export const BASE_URL = '';  // Empty = same origin; change to 'https://api.example.com' for a separate backend
+// BASE_URL can be configured via window.API_BASE_URL (set in index.html config block)
+// Defaults to empty string for same-origin deployments.
+export const BASE_URL = (typeof window !== 'undefined' && window.API_BASE_URL) || '';
 
 let _refreshing = null; // Singleton promise for in-flight refresh
 

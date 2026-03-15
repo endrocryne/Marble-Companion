@@ -80,6 +80,20 @@
     </div>
   </div>
 
+  <!--
+    App Configuration
+    Set these values before deploying. They can be injected by your build pipeline
+    or replaced at runtime by a server-side template.
+  -->
+  <script>
+    // Google OAuth 2.0 Client ID — create one at https://console.cloud.google.com/
+    window.GOOGLE_CLIENT_ID = '';
+
+    // API base URL — leave empty for same-origin, or set to your API server URL
+    // e.g. 'https://api.marblecompanion.com'
+    window.API_BASE_URL = '';
+  </script>
+
   <!-- App Modules -->
   <script type="module" src="./js/app.js"></script>
 </body>

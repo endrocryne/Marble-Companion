@@ -110,14 +110,23 @@ function setupAuthButtons() {
   document.getElementById('btn-microsoft')?.addEventListener('click', handleMicrosoftSignIn);
 }
 
+// Google OAuth client ID - configure in index.html or via window.GOOGLE_CLIENT_ID
+// Set window.GOOGLE_CLIENT_ID = 'your-client-id' in a config script before loading the app
+const GOOGLE_CLIENT_ID = (typeof window !== 'undefined' && window.GOOGLE_CLIENT_ID) || '';
+
 async function handleGoogleSignIn() {
   if (typeof google === 'undefined') {
     showToast('Google Sign-In is loading, please try again in a moment.', 'warning');
     return;
   }
 
+  if (!GOOGLE_CLIENT_ID) {
+    showToast('Google Sign-In is not configured. Please contact the app administrator.', 'error');
+    return;
+  }
+
   google.accounts.id.initialize({
-    client_id: 'YOUR_GOOGLE_CLIENT_ID',
+    client_id: GOOGLE_CLIENT_ID,
     callback: async (response) => {
       showLoading(true);
       try {

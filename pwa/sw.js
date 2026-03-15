@@ -1,6 +1,8 @@
+// Bump CACHE_VERSION whenever you deploy a new version to force cache invalidation.
+// Tip: use your CI/CD pipeline to replace this string with a build hash or timestamp.
 const CACHE_VERSION = 'mc-v1';
-const STATIC_CACHE = `${CACHE_VERSION}-static`;
-const API_CACHE = `${CACHE_VERSION}-api`;
+const STATIC_CACHE  = `${CACHE_VERSION}-static`;
+const API_CACHE     = `${CACHE_VERSION}-api`;
 
 const STATIC_ASSETS = [
   './index.html',
