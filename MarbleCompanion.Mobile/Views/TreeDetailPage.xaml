@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MarbleCompanion.Mobile.ViewModels"
+             xmlns:controls="clr-namespace:MarbleCompanion.Mobile.Controls"
+             x:Class="MarbleCompanion.Mobile.Views.TreeDetailPage"
+             x:DataType="vm:TreeDetailViewModel"
+             Title="{Binding Species, TargetNullValue='Your Tree'}"
+             BackgroundColor="{StaticResource BackgroundLight}"
+             Shell.PresentationMode="ModalAnimated">
+
+    <ScrollView Padding="24,16">
+        <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
+
+            <!-- Progress Ring -->
+            <controls:ProgressRingControl Progress="{Binding ProgressToNextMilestone}"
+                                          DisplayText="{Binding TotalLP, StringFormat='{0} LP'}"
+                                          HeightRequest="180"
+                                          WidthRequest="180"
+                                          HorizontalOptions="Center" />
+
+            <!-- Species & Stage -->
+            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                <Label Text="{Binding Species}"
+                       FontFamily="Georgia"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="{Binding StageName}"
+                       FontFamily="Georgia"
+                       FontSize="16"
+                       TextColor="{StaticResource TextSecondary}"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <!-- Health Section -->
+            <Frame BackgroundColor="{StaticResource CardLight}"
+                   CornerRadius="16"
+                   Padding="20"
+                   HasShadow="False"
+                   BorderColor="{StaticResource DividerLight}"
+                   HorizontalOptions="Fill">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Health"
+                               FontFamily="Georgia"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}" />
+                        <Label Grid.Column="1"
+                               Text="{Binding HealthState}"
+                               FontFamily="Georgia"
+                               FontSize="14"
+                               TextColor="{StaticResource Secondary}" />
+                    </Grid>
+                    <ProgressBar x:Name="HealthBar"
+                                 Progress="1.0"
+                                 ProgressColor="{StaticResource Success}"
+                                 BackgroundColor="{StaticResource DividerLight}"
+                                 HeightRequest="8" />
+                    <Label Text="{Binding HealthScore, StringFormat='{0}%'}"
+                           FontFamily="Georgia"
+                           FontSize="13"
+                           TextColor="{StaticResource TextSecondary}"
+                           HorizontalTextAlignment="End" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Stats Section -->
+            <Frame BackgroundColor="{StaticResource CardLight}"
+                   CornerRadius="16"
+                   Padding="20"
+                   HasShadow="False"
+                   BorderColor="{StaticResource DividerLight}"
+                   HorizontalOptions="Fill">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Impact"
+                           FontFamily="Georgia"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="16" RowSpacing="12">
+
+                        <!-- CO2 Avoided -->
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Text="{Binding TotalCO2eAvoided, StringFormat='{0:F1} kg'}"
+                                   FontFamily="Georgia"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}" />
+                            <Label Text="CO₂e avoided"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextSecondary}" />
+                        </VerticalStackLayout>
+
+                        <!-- Next Milestone -->
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="{Binding NextMilestoneLP, StringFormat='{0} LP'}"
+                                   FontFamily="Georgia"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Secondary}" />
+                            <Label Text="Next milestone"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextSecondary}" />
+                        </VerticalStackLayout>
+
+                        <!-- Total LP -->
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="2">
+                            <Label Text="{Binding TotalLP}"
+                                   FontFamily="Georgia"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Accent}" />
+                            <Label Text="Total Leaf Points"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextSecondary}" />
+                        </VerticalStackLayout>
+
+                        <!-- Stage -->
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="2">
+                            <Label Text="{Binding Stage}"
+                                   FontFamily="Georgia"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource TextPrimary}" />
+                            <Label Text="Current stage"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextSecondary}" />
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Active Cosmetics -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Active Cosmetics"
+                       FontFamily="Georgia"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}" />
+
+                <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                    <HorizontalStackLayout Spacing="8"
+                                           BindableLayout.ItemsSource="{Binding ActiveCosmetics}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Frame Style="{StaticResource ChipFrame}" Margin="0">
+                                    <Label Text="{Binding .}"
+                                           FontFamily="Georgia"
+                                           FontSize="13"
+                                           TextColor="{StaticResource TextPrimary}"
+                                           HorizontalTextAlignment="Center" />
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <Label Text="No cosmetics equipped yet"
+                       FontFamily="Georgia"
+                       FontSize="13"
+                       TextColor="{StaticResource TextSecondary}"
+                       HorizontalTextAlignment="Center"
+                       x:Name="NoCosmeticsLabel"
+                       IsVisible="True" />
+            </VerticalStackLayout>
+
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}"
+                   FontFamily="Georgia"
+                   FontSize="14"
+                   TextColor="{StaticResource Error}"
+                   HorizontalTextAlignment="Center"
+                   IsVisible="False"
+                   x:Name="ErrorLabel" />
+
+            <!-- Activity Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
