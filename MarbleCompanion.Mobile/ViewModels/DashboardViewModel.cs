@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MarbleCompanion.Mobile.Controls;
 using MarbleCompanion.Mobile.Services;
 using MarbleCompanion.Shared.DTOs;
 using MarbleCompanion.Shared.Enums;
@@ -92,7 +93,7 @@ public partial class DashboardViewModel
             var grouped = recentActions
                 .GroupBy(a => a.LoggedAt.Date)
                 .OrderBy(g => g.Key)
-                .Select(g => new ChartDataPoint(g.Key, g.Sum(a => a.CO2eSaved)))
+                .Select(g => new ChartDataPoint(g.Key, (decimal)g.Sum(a => a.CO2eSaved)))
                 .ToList();
             LineChartData = new ObservableCollection<ChartDataPoint>(grouped);
 
@@ -120,7 +121,5 @@ public partial class DashboardViewModel
         }
     }
 }
-
-public record ChartDataPoint(DateTime Date, double Value);
 
 public record CategorySegment(ActionCategory Category, double CO2eSaved, int ActionCount);

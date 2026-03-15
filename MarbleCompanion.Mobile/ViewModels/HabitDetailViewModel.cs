@@ -115,18 +115,21 @@ public partial class HabitDetailViewModel
 
     private void BuildHeatmapData(ActiveHabitDto habit)
     {
-        // Generate last 90 days of heatmap data based on streak info
         var entries = new List<CalendarHeatmapEntry>();
         var today = DateTime.UtcNow.Date;
+
+        // Determine the streak window: current streak days ending at LastCheckinAt
+        DateTime? streakEnd = habit.LastCheckinAt?.Date;
+        DateTime? streakStart = streakEnd.HasValue && habit.CurrentStreak > 0
+            ? streakEnd.Value.AddDays(-(habit.CurrentStreak - 1))
+            : null;
 
         for (int i = 89; i >= 0; i--)
         {
             var date = today.AddDays(-i);
-            bool completed = false;
-
-            // If the date falls within the current streak window, mark as completed
-            if (habit.LastCheckinAt.HasValue && i < habit.CurrentStreak)
-                completed = true;
+            bool completed = streakStart.HasValue
+                && date >= streakStart.Value
+                && date <= streakEnd!.Value;
 
             entries.Add(new CalendarHeatmapEntry(date, completed));
         }
